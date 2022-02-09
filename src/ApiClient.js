@@ -19,6 +19,16 @@ export class ApiClient {
     );
   }
 
+  getFiveDayWeather(location) {
+    console.log(location.lat);
+    console.log(location.lon);
+    //not setting a default state before api response you could if you want
+    //string interpolation to only display correct "page" ? needed for parameters 20 is default
+    return this.getRequest(
+      `https://api.openweathermap.org/data/2.5/onecall?lat=${location.lat}&lon=${location.lon}&exclude=hourly,minutely&units=metric&appid=06af2c84a95e6a736fd7bab4b3be279d`
+    );
+  }
+
   getWeather() {
     //get response from api using axios this needed as we are usign objects
     return this.getRequest(
