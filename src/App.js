@@ -15,6 +15,7 @@ function App() {
     description: "",
     temp: "",
     feelTemp: "",
+    humidity: "",
     cloud: "",
     windSpeed: "",
     windDirection: "",
@@ -49,6 +50,7 @@ function App() {
       description: jsonResponse.weather[0].description,
       temp: jsonResponse.main.temp,
       feelTemp: jsonResponse.main.feels_like,
+      humidity: jsonResponse.main.humidity,
       cloud: jsonResponse.clouds.all,
       windSpeed: jsonResponse.wind.speed,
       windDirection: jsonResponse.wind.direction,
@@ -59,8 +61,8 @@ function App() {
       lat: response.lat,
       lon: response.lon,
     });
-    console.log(response.lat)
-    console.log(response.lon)
+    console.log(`Update location lat `, response.lat)
+    console.log(`Update location lon `, response.lon)
   };
 
   const refreshLocation = () => {
@@ -92,14 +94,15 @@ function App() {
   const refreshCurrentWeather = () => {
     cCurrentWeather({
       //default placeholder quote if api is fast this could replace the response this must be above the response
-      date: "Loading...",
-      tag: "",
-      description: "",
-      temp: "",
-      feelTemp: "",
-      cloud: "",
-      windSpeed: "",
-      windDirection: "",
+      date: "Loading....",
+        tag: "Loading....",
+        description: "Loading....",
+        temp: "Loading....",
+        feelTemp: "Loading....",
+        humidity: "Loading....",
+        cloud: "Loading....",
+        windSpeed: "Loading....",
+        windDirection: "Loading...."
     });
 
     //fetching stops overloading api
@@ -122,13 +125,17 @@ function App() {
       .finally(cFetching(false));
   };
   
-  
-    useEffect(() => {
+  useEffect(() => {
     //disable error for the square brackets you dont want to re-run the function after everychange in this case
     refreshLocation();
-    refreshCurrentWeather();
     // eslint-disable-next-line
   }, []);
+
+    useEffect(() => {
+    //disable error for the square brackets you dont want to re-run the function after everychange in this case
+    refreshCurrentWeather();
+    // eslint-disable-next-line
+  }, [location]);
   
   return (
     <div className="App">
@@ -137,9 +144,10 @@ function App() {
       <p>Date: {moment(currentWeather.date).format('ll')}</p>
       <p>{currentWeather.tag} {currentWeather.description}</p>
       <p>Cloud Coverage: {currentWeather.cloud}%</p>
-      <p>Temp: {currentWeather.temp - 273} <sup>o</sup>C </p>
-      <p>Feels Like: {currentWeather.feelTemp} UNITS</p>
-      <p>WindSpeed: {currentWeather.windSpeed} UNITS </p>
+      <p>Temp: {currentWeather.temp} <sup>o</sup>C </p>
+      <p>Feels Like: {currentWeather.feelTemp} <sup>o</sup>C </p>
+      <p>Humidity: {currentWeather.humidity}%</p>
+      <p>WindSpeed: {currentWeather.windSpeed} meter/sec</p>
       
       <button disabled={fetching} onClick={() => refreshCurrentWeather()}>
         Update
