@@ -131,6 +131,14 @@ function App() {
   const refreshSevenDayWeather = () => {
     cSevenDayWeather({
       //default placeholder quote if api is fast this could replace the response this must be above the response
+      // dt: "",
+      // tag: "",
+      // description: "",
+      // tempmin: "",
+      // tempmax: "",
+      // humidity: "",
+      // cloud: "",
+      // windSpeed: "",
     });
 
     //fetching stops overloading api
@@ -164,7 +172,6 @@ function App() {
     //disable error for the square brackets you dont want to re-run the function after everychange in this case
     // refreshCurrentWeather();
     refreshSevenDayWeather();
-    // eslint-disable-next-line
   }, [location]);
 
   const buildSevenDayWeather = () => {
@@ -179,7 +186,7 @@ function App() {
           <td>{dayWeather.humidity}</td>
           <td>{dayWeather.cloud}</td>
           <td>{dayWeather.windSpeed}</td>
-          {console.log(dayWeather)}
+          {console.log(`we made it`,dayWeather)}
         </tr>
       );
     });
@@ -223,7 +230,7 @@ function App() {
           </tr>
         </thead>
         {console.log(`array before build map`, sevenDayWeather)}
-        {/* <tbody>{buildSevenDayWeather()}</tbody> */}
+        <tbody>{buildSevenDayWeather()}</tbody>
       </table>
     </div>
   );
