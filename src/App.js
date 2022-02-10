@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
 import * as moment from "moment";
-import axios from "axios";
 import { ApiClient } from "./ApiClient";
+
+import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 
-import WeatherCard from "./WeatherCard";
+import Container from "react-bootstrap/Container";
+import Card from "react-bootstrap/Card";
+import Button from "react-bootstrap/Button";
 
 function App() {
   const [currentWeather, cCurrentWeather] = useState({});
@@ -18,6 +21,7 @@ function App() {
       humidity: "",
       cloud: "",
       windSpeed: "",
+      icon: "",
     },
   ]);
   const [fetching, cFetching] = useState(false);
@@ -52,6 +56,7 @@ function App() {
       humidity: response.humidity,
       cloud: response.clouds,
       windSpeed: response.wind_speed,
+      icon: `http://openweathermap.org/img/wn/${response.weather[0].icon}@2x.png`,
     });
     // console.log(response.dt);
   };
@@ -67,6 +72,7 @@ function App() {
       humidity: weather.humidity,
       cloud: weather.clouds,
       windSpeed: weather.wind_speed,
+      icon: `http://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`,
     }));
     cSevenDayWeather(sevendaylist);
     console.log(sevendaylist);
@@ -130,58 +136,62 @@ function App() {
   const buildSevenDayWeather = () => {
     return sevenDayWeather.slice(1).map((dayWeather, index) => {
       return (
-        <tr key={index}>
-          <td>{moment(dayWeather.date * 1000).format("dddd")}</td>
-          <td>{dayWeather.tag}</td>
-          <td>{dayWeather.description}</td>
-          <td>{dayWeather.tempmin}</td>
-          <td>{dayWeather.tempmax}</td>
-          <td>{dayWeather.humidity}</td>
-          <td>{dayWeather.cloud}</td>
-          <td>{dayWeather.windSpeed}</td>
-          {/* {console.log(`we made it`, dayWeather)} */}
-        </tr>
+        <>
+          <Card style={{ width: "18rem" }}>
+            <Card.Img
+              variant="top"
+              className="icon"
+              src={dayWeather.icon}
+            />
+            <Card.Body>
+              <Card.Title>
+                {moment(dayWeather.date * 1000).format("dddd")}
+              </Card.Title>
+              <Card.Text>
+                {dayWeather.tag} {dayWeather.description}
+                <br />
+                Cloud Coverage: {dayWeather.cloud}%<br />
+                Temp Min: {dayWeather.tempmin} <sup>o</sup>C <br />
+                Temp Max: {dayWeather.tempmax} <sup>o</sup>C <br />
+                Humidity: {dayWeather.humidity}%<br />
+                WindSpeed: {dayWeather.windSpeed} m/s
+                <br />
+              </Card.Text>
+              <Button variant="primary">More Info</Button>
+            </Card.Body>
+          </Card>
+        </>
       );
     });
   };
 
   return (
-    <div className="App">
-      Hello the weather today in {cityInput.city} is <br />
-      <p></p>
-      <p>Date: {moment(currentWeather.date * 1000).format("ll")}</p>
-      <p>
-        {currentWeather.tag} {currentWeather.description}
-      </p>
-      <p>Cloud Coverage: {currentWeather.cloud}%</p>
-      <p>
-        Temp: {currentWeather.temp} <sup>o</sup>C{" "}
-      </p>
-      <p>
-        Feels Like: {currentWeather.feelTemp} <sup>o</sup>C{" "}
-      </p>
-      <p>Humidity: {currentWeather.humidity}%</p>
-      <p>WindSpeed: {currentWeather.windSpeed} meter/sec</p>
-      <form>
-        <input type="text" id="cityInput" placeholder="Type City Here" />
-        <button onClick={(event) => updateCity(event)}>Update City</button>
-      </form>
-      <table>
-        <thead>
-          <tr>
-            <th>Date</th>
-            <th>Main</th>
-            <th>Description</th>
-            <th>Temp Min</th>
-            <th>Temp Max</th>
-            <th>Humidity</th>
-            <th>Cloud</th>
-            <th>Windspeed</th>
-          </tr>
-        </thead>
-        <tbody>{buildSevenDayWeather()}</tbody>
-      </table>
-    </div>
+    <Container>
+      <Card style={{ width: "18rem" }}>
+        <Card.Img
+          variant="top"
+          className="icon"
+          src={currentWeather.icon}
+        />
+        <Card.Body>
+          <Card.Title>The weather currently in {cityInput.city}</Card.Title>
+          <Card.Text>
+            Date: {moment(currentWeather.date * 1000).format("ll")}
+            <br />
+            {currentWeather.tag} {currentWeather.description}
+            <br />
+            Cloud Coverage: {currentWeather.cloud}%<br />
+            Temp: {currentWeather.temp} <sup>o</sup>C <br />
+            Feels Like: {currentWeather.feelTemp} <sup>o</sup>C <br />
+            Humidity: {currentWeather.humidity}%<br />
+            WindSpeed: {currentWeather.windSpeed} m/s
+            <br />
+          </Card.Text>
+          <Button variant="primary">More Info</Button>
+        </Card.Body>
+      </Card>
+      {buildSevenDayWeather()}
+    </Container>
   );
 }
 
