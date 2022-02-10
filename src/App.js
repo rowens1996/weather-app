@@ -9,24 +9,11 @@ import WeatherCard from "./WeatherCard";
 
 
 function App() {
-  const [currentWeather, cCurrentWeather] = useState({
-    date: "",
-    tag: "",
-    description: "",
-    temp: "",
-    feelTemp: "",
-    humidity: "",
-    cloud: "",
-    windSpeed: "",
-  });
+  const [currentWeather, cCurrentWeather] = useState({});
 
   const [fiveDayWeather, cFiveDayWeather] = useState([]);
-
   const [fetching, cFetching] = useState(false);
-  const [location, cLocation] = useState({
-    lat: "",
-    lon: "",
-  });
+  const [location, cLocation] = useState({});
   const [cityInput, cCityInput] = useState({
     city: "Sheffield",
   });
@@ -71,6 +58,7 @@ function App() {
     }));
     cFiveDayWeather(fivedaylist)
     console.log(fivedaylist);
+    console.log(fivedaylist[0].dt);
       
     
   };
@@ -164,12 +152,12 @@ function App() {
         console.log(res.data)
       })
       //display error message if error found in check
-      .catch((error) => {
+      // .catch((error) => {
         //gives red cross to show its and error doesnt tell user not the best error handling
-        console.error(error);
-      })
+        // console.error(error);
+      // })
       //undisable button after quote has been rendered
-      .finally(cFetching(false));
+      // .finally(cFetching(false));
   };
   
   useEffect(() => {
@@ -180,10 +168,29 @@ function App() {
 
     useEffect(() => {
     //disable error for the square brackets you dont want to re-run the function after everychange in this case
-    refreshCurrentWeather();
-    // refreshFiveDayWeather();
+    // refreshCurrentWeather();
+    refreshFiveDayWeather();
     // eslint-disable-next-line
   }, [location]);
+
+  const buildFiveDayWeather = () => {
+    return fiveDayWeather.map((dayWeather, index) => {
+      return (
+        <tr key={index}>
+          <td>{moment(dayWeather.dt).format('ll')}</td>
+          <td>{dayWeather.tag}</td>
+          <td>{dayWeather.description}</td>
+          <td>{dayWeather.tempmin}</td>
+          <td>{dayWeather.tempmax}</td>
+          <td>{dayWeather.humidity}</td>
+          <td>{dayWeather.cloud}</td>
+          <td>{dayWeather.windSpeed}</td>
+          {console.log(dayWeather)}
+
+        </tr>
+      );
+    });
+  };
   
   return (
     <div className="App">
@@ -204,6 +211,22 @@ function App() {
         <input type="text" id="cityInput" placeholder="Type City Here"/>
          <button onClick={(event)=>updateCity(event)}>Update City</button>
     </form>
+    <table>
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Main</th>
+            <th>Description</th>
+            <th>Temp Min</th>
+            <th>Temp Max</th>
+            <th>Humidity</th>
+            <th>Cloud</th>
+            <th>Windspeed</th>
+          </tr>
+        </thead>{console.log(`array before build map`,fiveDayWeather)}
+        {/* <tbody>{buildFiveDayWeather()}</tbody> */}
+      </table>
+    
     </div>
     
   );
