@@ -136,7 +136,7 @@ function App() {
   const buildSevenDayWeather = () => {
     return sevenDayWeather.slice(1).map((dayWeather, index) => {
       return (
-        <>
+        <div key={index}>
           <Card style={{ width: "18rem" }}>
             <Card.Img
               variant="top"
@@ -160,7 +160,7 @@ function App() {
               <Button variant="primary">More Info</Button>
             </Card.Body>
           </Card>
-        </>
+        </div>
       );
     });
   };
