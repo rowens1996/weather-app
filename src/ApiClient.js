@@ -28,7 +28,6 @@ export class ApiClient {
     );
   }
 
-
   getRequest(url) {
     return axios
       .get(url)
