@@ -110,7 +110,7 @@ function App() {
       .then((res) => {
         updateSevenDayWeather(res.data);
         updateCurrentWeather(res.data.current);
-        // console.log(`sevendayweather array`, res.data);
+        console.log(`sevendayweather array`, res.data);
         // console.log(`currentweather array`, res.data.current);
       })
       //display error message if error found in check
@@ -128,7 +128,7 @@ function App() {
   }, [location]);
 
   const buildSevenDayWeather = () => {
-    return sevenDayWeather.map((dayWeather, index) => {
+    return sevenDayWeather.slice(1).map((dayWeather, index) => {
       return (
         <tr key={index}>
           <td>{moment(dayWeather.date * 1000).format("dddd")}</td>
