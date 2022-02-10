@@ -2,17 +2,17 @@
 import axios from "axios";
 
 export class ApiClient {
-
   status(response) {
     //code in this range are typically good responses
     if (response.status >= 200 && response.status < 300) {
       //say it is resovled
-      return Promise.resolve(response)
+      return Promise.resolve(response);
     } else {
       //returns Error object as text i.e 404 Not found
-      return Promise.reject(new Error(response.statusText))
+      return Promise.reject(new Error(response.statusText));
     }
   }
+
   getLocation(cityInput) {
     //get response from api using axios this needed as we are usign objects
     return this.getRequest(
@@ -48,12 +48,13 @@ export class ApiClient {
   }
 
   getRequest(url) {
-    return axios.get(url)
+    return axios
+      .get(url)
       .then(this.status)
       .catch(function (error) {
         // handle error
         console.error(error);
         // alert(error)
-      })
+      });
   }
 }

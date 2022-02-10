@@ -1,16 +1,13 @@
 import React, { useState, useEffect } from "react";
-import * as moment from 'moment'
+import * as moment from "moment";
 import axios from "axios";
 import { ApiClient } from "./ApiClient";
 import "./App.css";
 
 import WeatherCard from "./WeatherCard";
 
-
-
 function App() {
   const [currentWeather, cCurrentWeather] = useState({});
-
   const [sevenDayWeather, cSevenDayWeather] = useState([]);
   const [fetching, cFetching] = useState(false);
   const [location, cLocation] = useState({});
@@ -23,8 +20,8 @@ function App() {
     event.preventDefault();
     let input = document.getElementById("cityInput").value;
     cCityInput({
-      city: input
-    })
+      city: input,
+    });
     console.log(`You just entered`, input);
     refreshLocation();
   };
@@ -56,20 +53,18 @@ function App() {
       cloud: weather.clouds,
       windSpeed: weather.wind_speed,
     }));
-    cSevenDayWeather(sevendaylist)
+    cSevenDayWeather(sevendaylist);
     console.log(sevendaylist);
     // console.log(sevendaylist[0].dt);
-      
-    
   };
-  
+
   const updateLocation = (response) => {
     cLocation({
       lat: response.lat,
       lon: response.lon,
     });
-    console.log(`Update location lat `, response.lat)
-    console.log(`Update location lon `, response.lon)
+    console.log(`Update location lat `, response.lat);
+    console.log(`Update location lon `, response.lon);
   };
 
   const refreshLocation = () => {
@@ -88,7 +83,7 @@ function App() {
       //.then((res) => res.json())
       //passes it into function updateQuote .data needed when axios
       .then((res) => {
-        console.log(res.data[0])
+        console.log(res.data[0]);
         updateLocation(res.data[0]);
       })
       //display error message if error found in check
@@ -104,13 +99,13 @@ function App() {
     cCurrentWeather({
       //default placeholder quote if api is fast this could replace the response this must be above the response
       date: "Loading....",
-        tag: "Loading....",
-        description: "Loading....",
-        temp: "Loading....",
-        feelTemp: "Loading....",
-        humidity: "Loading....",
-        cloud: "Loading....",
-        windSpeed: "Loading....",
+      tag: "Loading....",
+      description: "Loading....",
+      temp: "Loading....",
+      feelTemp: "Loading....",
+      humidity: "Loading....",
+      cloud: "Loading....",
+      windSpeed: "Loading....",
     });
 
     //fetching stops overloading api
@@ -136,7 +131,6 @@ function App() {
   const refreshSevenDayWeather = () => {
     cSevenDayWeather({
       //default placeholder quote if api is fast this could replace the response this must be above the response
-
     });
 
     //fetching stops overloading api
@@ -149,7 +143,7 @@ function App() {
       //passes it into function updateQuote .data needed when axios
       .then((res) => {
         updateSevenDayWeather(res.data);
-        console.log(res.data)
+        console.log(res.data);
       })
       //display error message if error found in check
       .catch((error) => {
@@ -159,14 +153,14 @@ function App() {
       //undisable button after quote has been rendered
       .finally(cFetching(false));
   };
-  
+
   useEffect(() => {
     //disable error for the square brackets you dont want to re-run the function after everychange in this case
     refreshLocation();
     // eslint-disable-next-line
   }, []);
 
-    useEffect(() => {
+  useEffect(() => {
     //disable error for the square brackets you dont want to re-run the function after everychange in this case
     // refreshCurrentWeather();
     refreshSevenDayWeather();
@@ -177,7 +171,7 @@ function App() {
     return sevenDayWeather.map((dayWeather, index) => {
       return (
         <tr key={index}>
-          <td>{moment(dayWeather.dt).format('ll')}</td>
+          <td>{moment(dayWeather.dt).format("ll")}</td>
           <td>{dayWeather.tag}</td>
           <td>{dayWeather.description}</td>
           <td>{dayWeather.tempmin}</td>
@@ -186,32 +180,36 @@ function App() {
           <td>{dayWeather.cloud}</td>
           <td>{dayWeather.windSpeed}</td>
           {console.log(dayWeather)}
-
         </tr>
       );
     });
   };
-  
+
   return (
     <div className="App">
-      Hello the weather today in {cityInput.city}  is <br />
+      Hello the weather today in {cityInput.city} is <br />
       <p></p>
-      <p>Date: {moment(currentWeather.date).format('ll')}</p>
-      <p>{currentWeather.tag} {currentWeather.description}</p>
+      <p>Date: {moment(currentWeather.date).format("ll")}</p>
+      <p>
+        {currentWeather.tag} {currentWeather.description}
+      </p>
       <p>Cloud Coverage: {currentWeather.cloud}%</p>
-      <p>Temp: {currentWeather.temp} <sup>o</sup>C </p>
-      <p>Feels Like: {currentWeather.feelTemp} <sup>o</sup>C </p>
+      <p>
+        Temp: {currentWeather.temp} <sup>o</sup>C{" "}
+      </p>
+      <p>
+        Feels Like: {currentWeather.feelTemp} <sup>o</sup>C{" "}
+      </p>
       <p>Humidity: {currentWeather.humidity}%</p>
       <p>WindSpeed: {currentWeather.windSpeed} meter/sec</p>
-      
       <button disabled={fetching} onClick={() => refreshCurrentWeather()}>
         Update
       </button>
       <form>
-        <input type="text" id="cityInput" placeholder="Type City Here"/>
-         <button onClick={(event)=>updateCity(event)}>Update City</button>
-    </form>
-    <table>
+        <input type="text" id="cityInput" placeholder="Type City Here" />
+        <button onClick={(event) => updateCity(event)}>Update City</button>
+      </form>
+      <table>
         <thead>
           <tr>
             <th>Date</th>
@@ -223,12 +221,11 @@ function App() {
             <th>Cloud</th>
             <th>Windspeed</th>
           </tr>
-        </thead>{console.log(`array before build map`,sevenDayWeather)}
+        </thead>
+        {console.log(`array before build map`, sevenDayWeather)}
         {/* <tbody>{buildSevenDayWeather()}</tbody> */}
       </table>
-    
     </div>
-    
   );
 }
 
