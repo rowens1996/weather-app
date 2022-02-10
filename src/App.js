@@ -30,17 +30,17 @@ function App() {
   };
 
   //callback function
-  const updateCurrentWeather = (jsonResponse) => {
+  const updateCurrentWeather = (response) => {
     cCurrentWeather({
       //changes the state to the wanted parts from the api
-      dt: jsonResponse.dt,
-      tag: jsonResponse.weather[0].main,
-      description: jsonResponse.weather[0].description,
-      temp: jsonResponse.main.temp,
-      feelTemp: jsonResponse.main.feels_like,
-      humidity: jsonResponse.main.humidity,
-      cloud: jsonResponse.clouds.all,
-      windSpeed: jsonResponse.wind.speed,
+      dt: response.dt,
+      tag: response.weather[0].main,
+      description: response.weather[0].description,
+      temp: response.main.temp,
+      feelTemp: response.main.feels_like,
+      humidity: response.main.humidity,
+      cloud: response.clouds.all,
+      windSpeed: response.wind.speed,
     });
   };
 
