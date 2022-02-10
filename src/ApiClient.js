@@ -21,12 +21,12 @@ export class ApiClient {
   }
 
   getSevenDayWeather(location) {
-    console.log(location.lat);
-    console.log(location.lon);
+    // console.log(location.lat);
+    // console.log(location.lon);
     //not setting a default state before api response you could if you want
     //string interpolation to only display correct "page" ? needed for parameters 20 is default
     return this.getRequest(
-      `https://api.openweathermap.org/data/2.5/onecall?lat=${location.lat}&lon=${location.lon}&exclude=hourly,minutely&units=metric&appid=06af2c84a95e6a736fd7bab4b3be279d`
+      `https://api.openweathermap.org/data/2.5/onecall?lat=${location.lat}&lon=${location.lon}&exclude=hourly,minutely,alerts&units=metric&appid=06af2c84a95e6a736fd7bab4b3be279d`
     );
   }
 
@@ -37,15 +37,15 @@ export class ApiClient {
   //   );
   // }
 
-  getCurrentWeather(location) {
-    console.log(location.lat);
-    console.log(location.lon);
-    //not setting a default state before api response you could if you want
-    //string interpolation to only display correct "page" ? needed for parameters 20 is default
-    return this.getRequest(
-      `https://api.openweathermap.org/data/2.5/weather?lat=${location.lat}&lon=${location.lon}&units=metric&appid=710ed526ca59cba3f2fa234c8b88bf00`
-    );
-  }
+  // getCurrentWeather(location) {
+  //   console.log(location.lat);
+  //   console.log(location.lon);
+  //   //not setting a default state before api response you could if you want
+  //   //string interpolation to only display correct "page" ? needed for parameters 20 is default
+  //   return this.getRequest(
+  //     `https://api.openweathermap.org/data/2.5/weather?lat=${location.lat}&lon=${location.lon}&units=metric&appid=710ed526ca59cba3f2fa234c8b88bf00`
+  //   );
+  // }
 
   getRequest(url) {
     return axios
