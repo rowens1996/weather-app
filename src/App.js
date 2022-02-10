@@ -11,7 +11,7 @@ import WeatherCard from "./WeatherCard";
 function App() {
   const [currentWeather, cCurrentWeather] = useState({});
 
-  const [fiveDayWeather, cFiveDayWeather] = useState([]);
+  const [sevenDayWeather, cSevenDayWeather] = useState([]);
   const [fetching, cFetching] = useState(false);
   const [location, cLocation] = useState({});
   const [cityInput, cCityInput] = useState({
@@ -44,8 +44,8 @@ function App() {
     });
   };
 
-  const updateFiveDayWeather = (response) => {
-    const fivedaylist = response.daily.map((weather) => ({
+  const updateSevenDayWeather = (response) => {
+    const sevendaylist = response.daily.map((weather) => ({
       //changes the state to the wanted parts from the api
       dt: weather.dt,
       tag: weather.weather[0].main,
@@ -56,9 +56,9 @@ function App() {
       cloud: weather.clouds,
       windSpeed: weather.wind_speed,
     }));
-    cFiveDayWeather(fivedaylist)
-    console.log(fivedaylist);
-    console.log(fivedaylist[0].dt);
+    cSevenDayWeather(sevendaylist)
+    console.log(sevendaylist);
+    // console.log(sevendaylist[0].dt);
       
     
   };
@@ -133,8 +133,8 @@ function App() {
       .finally(cFetching(false));
   };
 
-  const refreshFiveDayWeather = () => {
-    cFiveDayWeather({
+  const refreshSevenDayWeather = () => {
+    cSevenDayWeather({
       //default placeholder quote if api is fast this could replace the response this must be above the response
 
     });
@@ -143,21 +143,21 @@ function App() {
     cFetching(true);
     //get response from api usingn axios
     apiClient
-      .getFiveDayWeather(location)
+      .getSevenDayWeather(location)
       // if no axios using get once reponse has been recieved pass it into function to convert to json
       //.then((res) => res.json())
       //passes it into function updateQuote .data needed when axios
       .then((res) => {
-        updateFiveDayWeather(res.data);
+        updateSevenDayWeather(res.data);
         console.log(res.data)
       })
       //display error message if error found in check
-      // .catch((error) => {
+      .catch((error) => {
         //gives red cross to show its and error doesnt tell user not the best error handling
-        // console.error(error);
-      // })
+        console.error(error);
+      })
       //undisable button after quote has been rendered
-      // .finally(cFetching(false));
+      .finally(cFetching(false));
   };
   
   useEffect(() => {
@@ -169,12 +169,12 @@ function App() {
     useEffect(() => {
     //disable error for the square brackets you dont want to re-run the function after everychange in this case
     // refreshCurrentWeather();
-    refreshFiveDayWeather();
+    refreshSevenDayWeather();
     // eslint-disable-next-line
   }, [location]);
 
-  const buildFiveDayWeather = () => {
-    return fiveDayWeather.map((dayWeather, index) => {
+  const buildSevenDayWeather = () => {
+    return sevenDayWeather.map((dayWeather, index) => {
       return (
         <tr key={index}>
           <td>{moment(dayWeather.dt).format('ll')}</td>
@@ -223,8 +223,8 @@ function App() {
             <th>Cloud</th>
             <th>Windspeed</th>
           </tr>
-        </thead>{console.log(`array before build map`,fiveDayWeather)}
-        {/* <tbody>{buildFiveDayWeather()}</tbody> */}
+        </thead>{console.log(`array before build map`,sevenDayWeather)}
+        {/* <tbody>{buildSevenDayWeather()}</tbody> */}
       </table>
     
     </div>

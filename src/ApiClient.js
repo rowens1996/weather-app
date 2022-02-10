@@ -20,7 +20,7 @@ export class ApiClient {
     );
   }
 
-  getFiveDayWeather(location) {
+  getSevenDayWeather(location) {
     console.log(location.lat);
     console.log(location.lon);
     //not setting a default state before api response you could if you want
