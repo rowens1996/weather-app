@@ -150,16 +150,16 @@ function App() {
     return sevenDayWeather.slice(1).map((dayWeather, index) => {
       return (
         <div key={index}>
-          <Card className="otherCard" style={{ width: "23rem" }}>
+          <Card className="dayCard" style={{ width: "23rem" }}>
             <Card.Img variant="top"  style={{ width: "10rem" }} className="icon" src={dayWeather.icon} />
-            <Card.Header as="h5">
+            {/* <Card.Header as="h5"> */}
               <Card.Title>
                 {moment(dayWeather.date * 1000).format("dddd")}
               </Card.Title>
               <Card.Subtitle className="text-muted">
                 {dayWeather.tag} {dayWeather.description}
               </Card.Subtitle>
-            </Card.Header>
+            {/* </Card.Header> */}
             <Card.Body>
               <Card.Text className="mb-1">
                 Min: {dayWeather.tempmin}
