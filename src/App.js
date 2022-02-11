@@ -10,13 +10,11 @@ import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import ProgressBar from "react-bootstrap/ProgressBar";
 import Navbar from "react-bootstrap/Navbar";
-import {Stack} from "react-bootstrap/";
-import {Form} from "react-bootstrap/";
-import {FormControl} from "react-bootstrap/";
+import { Stack } from "react-bootstrap/";
+import { Form } from "react-bootstrap/";
+import { FormControl } from "react-bootstrap/";
 
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
-
-
 
 function App() {
   const [currentWeather, cCurrentWeather] = useState({});
@@ -152,8 +150,8 @@ function App() {
     return sevenDayWeather.slice(1).map((dayWeather, index) => {
       return (
         <div key={index}>
-          <Card className="otherCard" style={{ width: "18rem" }}>
-            <Card.Img variant="top" className="icon" src={dayWeather.icon} />
+          <Card className="otherCard" style={{ width: "23rem" }}>
+            <Card.Img variant="top"  style={{ width: "10rem" }} className="icon" src={dayWeather.icon} />
             <Card.Header as="h5">
               <Card.Title>
                 {moment(dayWeather.date * 1000).format("dddd")}
@@ -173,7 +171,6 @@ function App() {
                 <br />
               </Card.Text>
               <Card.Text>
-
                 Humidity:{" "}
                 <ProgressBar
                   animated
@@ -197,31 +194,38 @@ function App() {
   };
 
   return (
-
-    <BrowserRouter>
-      <Navbar style={{position: "fixed", width: "100vw", zIndex:"999"}} className="Navbar" bg="light">
-      <Navbar.Brand className="LogoText"><h1>The Weather App</h1></Navbar.Brand>
-      <Stack direction="vertical">
-        <Container fluid className="justify-content-center">
-          <Form onSubmit={(event)=>updateCity(event)}>
-            <Stack className="mt-3 mb-3" direction="horizontal" gap="3">
-            <FormControl
-            id="cityInput"
-            type="text"
-            placeholder="City Search"/>
-            <Button onClick={(event)=>updateCity(event)}>
-              Search
-            </Button>
-            </Stack>
-          </Form>
-        </Container></Stack>
-      </Navbar>
+    <>
+      <BrowserRouter>
+        <Navbar
+          style={{ position: "fixed", width: "100vw", zIndex: "999" }}
+          className="Navbar"
+          bg="light"
+        >
+          <Navbar.Brand className="LogoText">
+            <h2>The Weather App</h2>
+          </Navbar.Brand>
+          <Stack direction="vertical">
+            <Container fluid className="justify-content-center">
+              <Form onSubmit={(event) => updateCity(event)}>
+                <Stack className="mt-3 mb-3" direction="horizontal" gap="3">
+                  <FormControl
+                    id="cityInput"
+                    type="text"
+                    placeholder="City Search"
+                  />
+                  <Button onClick={(event) => updateCity(event)}>Search</Button>
+                </Stack>
+              </Form>
+            </Container>
+          </Stack>
+        </Navbar>
+      </BrowserRouter>
       <Container>
-        <Card className="mainCard" style={{ width: "20rem" }}>
-          <Card.Img variant="top" className="icon" src={currentWeather.icon} />
+        <Card className="mainCard" style={{ width: "100%" }}>
+          <Card.Img style={{ width: "10rem" }} variant="top" className="icon" src={currentWeather.icon} />
           <Card.Header as="h5" className="text-center">
             <Card.Title>The weather currently in {cityInput.city}</Card.Title>
-            <Card.Subtitle className="text-muted">
+            <Card.Subtitle className="text-secondary">
               {moment(currentWeather.date * 1000).format("ll")}
               <br />
               {currentWeather.tag} {currentWeather.description}
@@ -237,13 +241,15 @@ function App() {
               WindSpeed: {currentWeather.windSpeed}ms<sup>-1</sup>
               <br />
             </Card.Text>
-            <Card.Text>
+            <Card.Text className="mb-1">
               Humidity:{" "}
               <ProgressBar
                 animated
                 now={currentWeather.humidity}
                 label={`${currentWeather.humidity}%`}
               />
+            </Card.Text>
+            <Card.Text className="mb-1">
               Cloud Coverage:{" "}
               <ProgressBar
                 animated
@@ -255,17 +261,11 @@ function App() {
             <Button variant="primary">More Info</Button>
           </Card.Body>
         </Card>
-
       </Container>
       <Container>{buildSevenDayWeather()}</Container>
-    </BrowserRouter>
+    </>
   );
 }
-{
-  /* <form>
-  <input type="text" id="cityInput" placeholder="Type City Here" />
-  <button onClick={(event) => updateCity(event)}>Update City</button>
-</form>; */
-}
+{}
 
 export default App;
