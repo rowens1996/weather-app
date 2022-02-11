@@ -27,6 +27,7 @@ export class ApiClient {
     return this.getRequest(
       `https://api.openweathermap.org/data/2.5/onecall?lat=${location.lat}&lon=${location.lon}&exclude=hourly,minutely,alerts&units=metric&appid=538a42bbc311c05496005cb6a8a564b7`
      // `https://api.openweathermap.org/data/2.5/onecall?lat=${location.lat}&lon=${location.lon}&exclude=hourly,minutely,alerts&units=metric&appid=9c8171730fbf7632cad6d0ed3151b3ea`
+
     );
   }
 
