@@ -12,6 +12,7 @@ height: 10px;
 } */
 
 .mainCard{
+  margin-top: 10vh;
   margin-left: auto;
   margin-right: auto;
   font-family: 'Jua', sans-serif;
@@ -20,3 +21,8 @@ height: 10px;
 .otherCard{
   font-family: 'Jua', sans-serif;
 }
+
+h1 {
+  font-family: 'Jua', sans-serif;
+}
+  

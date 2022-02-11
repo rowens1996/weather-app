@@ -199,8 +199,9 @@ function App() {
   return (
 
     <BrowserRouter>
-      <Navbar bg="light">
-      <Navbar.Brand className="pl-5"><h1>Social App</h1></Navbar.Brand>
+      <Navbar style={{position: "fixed", width: "100vw", zIndex:"999"}} className="Navbar" bg="light">
+      <Navbar.Brand className="LogoText"><h1>The Weather App</h1></Navbar.Brand>
+      <Stack direction="vertical">
         <Container fluid className="justify-content-center">
           <Form onSubmit={(event)=>updateCity(event)}>
             <Stack className="mt-3 mb-3" direction="horizontal" gap="3">
@@ -213,7 +214,7 @@ function App() {
             </Button>
             </Stack>
           </Form>
-        </Container>
+        </Container></Stack>
       </Navbar>
       <Container>
         <Card className="mainCard" style={{ width: "20rem" }}>
