@@ -155,7 +155,7 @@ function App() {
                 <br />
                 Temp Min: {dayWeather.tempmin} <sup>o</sup>C <br />
                 Temp Max: {dayWeather.tempmax} <sup>o</sup>C <br />
-                WindSpeed: {dayWeather.windSpeed} m/s <br />
+                WindSpeed: {dayWeather.windSpeed} ms<sup>-1</sup><br />
                 Humidity:{" "}
                 <ProgressBar
                   animated
@@ -191,7 +191,7 @@ function App() {
             <br />
             Temp: {currentWeather.temp} <sup>o</sup>C <br />
             Feels Like: {currentWeather.feelTemp} <sup>o</sup>C <br />
-            WindSpeed: {currentWeather.windSpeed} m/s <br />
+            WindSpeed: {currentWeather.windSpeed} ms<sup>-1</sup><br />
             Humidity:{" "}
             <ProgressBar
               animated
