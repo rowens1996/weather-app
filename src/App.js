@@ -11,6 +11,8 @@ import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import ProgressBar from "react-bootstrap/ProgressBar";
 
+
+
 function App() {
   const [currentWeather, cCurrentWeather] = useState({});
   const [sevenDayWeather, cSevenDayWeather] = useState([
@@ -37,7 +39,7 @@ function App() {
   const apiClient = new ApiClient();
 
   const updateCity = (event) => {
-  event.preventDefault();
+    event.preventDefault();
     let input = document.getElementById("cityInput").value;
     cCityInput({
       city: input,
@@ -128,8 +130,8 @@ function App() {
       //undisable button after quote has been rendered
       .finally(cFetching(false));
   };
-  
- useEffect(() => {
+
+  useEffect(() => {
     //disable error for the square brackets you dont want to re-run the function after everychange in this case
     //refreshlocation(); works but bad
     refreshSevenDayWeather();
@@ -141,23 +143,31 @@ function App() {
     refreshLocation();
   }, [cityInput]);
 
-
   const buildSevenDayWeather = () => {
     return sevenDayWeather.slice(1).map((dayWeather, index) => {
       return (
         <div key={index}>
-          <Card style={{ width: "18rem" }}>
+          <Card className="otherCard" style={{ width: "18rem" }}>
             <Card.Img variant="top" className="icon" src={dayWeather.icon} />
-            <Card.Body>
+            <Card.Header as="h5">
               <Card.Title>
                 {moment(dayWeather.date * 1000).format("dddd")}
               </Card.Title>
-              <Card.Text>
+              <Card.Subtitle className="text-muted">
                 {dayWeather.tag} {dayWeather.description}
+              </Card.Subtitle>
+            </Card.Header>
+            <Card.Body>
+              <Card.Text className="mb-1">
+                Min: {dayWeather.tempmin}
+                <sup>o</sup>C - Max: {dayWeather.tempmax}
+                <sup>o</sup>C
+              </Card.Text>
+              <Card.Text className="mb-2">
+                WindSpeed: {dayWeather.windSpeed}ms<sup>-1</sup>
                 <br />
-                Temp Min: {dayWeather.tempmin} <sup>o</sup>C <br />
-                Temp Max: {dayWeather.tempmax} <sup>o</sup>C <br />
-                WindSpeed: {dayWeather.windSpeed} ms<sup>-1</sup><br />
+              </Card.Text>
+              <Card.Text>
                 Humidity:{" "}
                 <ProgressBar
                   animated
@@ -181,44 +191,56 @@ function App() {
   };
 
   return (
-
-    <Container>
-      <Card style={{ width: "18rem" }}>
-        <Card.Img variant="top" className="icon" src={currentWeather.icon} />
-        <Card.Body>
-          <Card.Title>The weather currently in {cityInput.city}</Card.Title>
-          <Card.Text>
-            Date: {moment(currentWeather.date * 1000).format("ll")}
-            <br />
-            {currentWeather.tag} {currentWeather.description}
-            <br />
-            Temp: {currentWeather.temp} <sup>o</sup>C <br />
-            Feels Like: {currentWeather.feelTemp} <sup>o</sup>C <br />
-            WindSpeed: {currentWeather.windSpeed} ms<sup>-1</sup><br />
-            Humidity:{" "}
-            <ProgressBar
-              animated
-              now={currentWeather.humidity}
-              label={`${currentWeather.humidity}%`}
-            />
-            Cloud Coverage:{" "}
-            <ProgressBar
-              animated
-              variant="info"
-              now={currentWeather.cloud}
-              label={`${currentWeather.cloud}%`}
-            />
-          </Card.Text>
-          <Button variant="primary">More Info</Button>
-        </Card.Body>
-      </Card>
-      {buildSevenDayWeather()}
-    </Container>
+    <>
+      <Container>
+        <Card className="mainCard" style={{ width: "20rem" }}>
+          <Card.Img variant="top" className="icon" src={currentWeather.icon} />
+          <Card.Header as="h5" className="text-center">
+            <Card.Title>The weather currently in {cityInput.city}</Card.Title>
+            <Card.Subtitle className="text-muted">
+              {moment(currentWeather.date * 1000).format("ll")}
+              <br />
+              {currentWeather.tag} {currentWeather.description}
+            </Card.Subtitle>
+          </Card.Header>
+          <Card.Body>
+            <Card.Text className="mb-1">
+              Temp: {currentWeather.temp}
+              <sup>o</sup>C - Feels Like: {currentWeather.feelTemp}
+              <sup>o</sup>C
+            </Card.Text>
+            <Card.Text className="mb-2">
+              WindSpeed: {currentWeather.windSpeed}ms<sup>-1</sup>
+              <br />
+            </Card.Text>
+            <Card.Text>
+              Humidity:{" "}
+              <ProgressBar
+                animated
+                now={currentWeather.humidity}
+                label={`${currentWeather.humidity}%`}
+              />
+              Cloud Coverage:{" "}
+              <ProgressBar
+                animated
+                variant="info"
+                now={currentWeather.cloud}
+                label={`${currentWeather.cloud}%`}
+              />
+            </Card.Text>
+            <Button variant="primary">More Info</Button>
+          </Card.Body>
+        </Card>
+      </Container>
+      <Container>{buildSevenDayWeather()}</Container>
+    </>
   );
 }
-{/* <form>
+{
+  /* <form>
   <input type="text" id="cityInput" placeholder="Type City Here" />
   <button onClick={(event) => updateCity(event)}>Update City</button>
-</form>; */}
+</form>; */
+}
 
 export default App;
