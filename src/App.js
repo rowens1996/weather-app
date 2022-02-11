@@ -5,6 +5,7 @@ import { ApiClient } from "./ApiClient";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 
+
 import Container from "react-bootstrap/Container";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
@@ -36,13 +37,12 @@ function App() {
   const apiClient = new ApiClient();
 
   const updateCity = (event) => {
-    event.preventDefault();
+  event.preventDefault();
     let input = document.getElementById("cityInput").value;
     cCityInput({
       city: input,
     });
     // console.log(`You just entered`, input);
-    // refreshLocation();
   };
 
   //callback function
@@ -128,9 +128,10 @@ function App() {
       //undisable button after quote has been rendered
       .finally(cFetching(false));
   };
-
-  useEffect(() => {
+  
+ useEffect(() => {
     //disable error for the square brackets you dont want to re-run the function after everychange in this case
+    //refreshlocation(); works but bad
     refreshSevenDayWeather();
   }, [location]);
 
@@ -139,6 +140,7 @@ function App() {
     //refreshlocation(); works but bad
     refreshLocation();
   }, [cityInput]);
+
 
   const buildSevenDayWeather = () => {
     return sevenDayWeather.slice(1).map((dayWeather, index) => {
@@ -179,6 +181,7 @@ function App() {
   };
 
   return (
+
     <Container>
       <Card style={{ width: "18rem" }}>
         <Card.Img variant="top" className="icon" src={currentWeather.icon} />
@@ -213,7 +216,6 @@ function App() {
     </Container>
   );
 }
-
 {/* <form>
   <input type="text" id="cityInput" placeholder="Type City Here" />
   <button onClick={(event) => updateCity(event)}>Update City</button>

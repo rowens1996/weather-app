@@ -17,6 +17,7 @@ export class ApiClient {
     //get response from api using axios this needed as we are usign objects
     return this.getRequest(
       `http://api.openweathermap.org/geo/1.0/direct?q=${cityInput.city},GB&appid=538a42bbc311c05496005cb6a8a564b7`
+      //`http://api.openweathermap.org/geo/1.0/direct?q=${cityInput.city},GB&appid=9c8171730fbf7632cad6d0ed3151b3ea`
     );
   }
 
@@ -25,6 +26,8 @@ export class ApiClient {
     //string interpolation to only display correct "page" ? needed for parameters 20 is default
     return this.getRequest(
       `https://api.openweathermap.org/data/2.5/onecall?lat=${location.lat}&lon=${location.lon}&exclude=hourly,minutely,alerts&units=metric&appid=538a42bbc311c05496005cb6a8a564b7`
+     // `https://api.openweathermap.org/data/2.5/onecall?lat=${location.lat}&lon=${location.lon}&exclude=hourly,minutely,alerts&units=metric&appid=9c8171730fbf7632cad6d0ed3151b3ea`
+
     );
   }
 
