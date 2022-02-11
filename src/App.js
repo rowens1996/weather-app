@@ -3,7 +3,7 @@ import * as moment from "moment";
 import axios from "axios";
 import { ApiClient } from "./ApiClient";
 import "./App.css";
-
+import 'bootstrap/dist/css/bootstrap.min.css';
 import WeatherCard from "./WeatherCard";
 
 function App() {
@@ -31,13 +31,12 @@ function App() {
   const apiClient = new ApiClient();
 
   const updateCity = (event) => {
-    event.preventDefault();
+  event.preventDefault();
     let input = document.getElementById("cityInput").value;
     cCityInput({
       city: input,
     });
     // console.log(`You just entered`, input);
-    refreshLocation();
   };
 
   //callback function
@@ -121,11 +120,20 @@ function App() {
       //undisable button after quote has been rendered
       .finally(cFetching(false));
   };
+  
+ useEffect(() => {
+    //disable error for the square brackets you dont want to re-run the function after everychange in this case
+    //refreshlocation(); works but bad
+    refreshSevenDayWeather();
+  }, [location]);
 
   useEffect(() => {
     //disable error for the square brackets you dont want to re-run the function after everychange in this case
-    refreshSevenDayWeather();
-  }, [location]);
+    //refreshlocation(); works but bad
+    refreshLocation();
+  }, [cityInput]);
+
+ 
 
   const buildSevenDayWeather = () => {
     return sevenDayWeather.slice(1).map((dayWeather, index) => {
@@ -161,7 +169,7 @@ function App() {
         Feels Like: {currentWeather.feelTemp} <sup>o</sup>C{" "}
       </p>
       <p>Humidity: {currentWeather.humidity}%</p>
-      <p>WindSpeed: {currentWeather.windSpeed} meter/sec</p>
+      <p>WindSpeed: {currentWeather.windSpeed} ms<sup>-1</sup></p>
       <form>
         <input type="text" id="cityInput" placeholder="Type City Here" />
         <button onClick={(event) => updateCity(event)}>Update City</button>
