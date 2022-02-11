@@ -8,7 +8,7 @@ import "./App.css";
 import Container from "react-bootstrap/Container";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
-import ProgressBar from 'react-bootstrap/ProgressBar'
+import ProgressBar from "react-bootstrap/ProgressBar";
 
 function App() {
   const [currentWeather, cCurrentWeather] = useState({});
@@ -139,11 +139,7 @@ function App() {
       return (
         <div key={index}>
           <Card style={{ width: "18rem" }}>
-            <Card.Img
-              variant="top"
-              className="icon"
-              src={dayWeather.icon}
-            />
+            <Card.Img variant="top" className="icon" src={dayWeather.icon} />
             <Card.Body>
               <Card.Title>
                 {moment(dayWeather.date * 1000).format("dddd")}
@@ -154,9 +150,19 @@ function App() {
                 Temp Min: {dayWeather.tempmin} <sup>o</sup>C <br />
                 Temp Max: {dayWeather.tempmax} <sup>o</sup>C <br />
                 WindSpeed: {dayWeather.windSpeed} m/s <br />
-                Humidity: <ProgressBar animated now={dayWeather.humidity} label={`${dayWeather.humidity}%`}/>
-                Cloud Coverage: <ProgressBar animated variant="info" now={dayWeather.cloud} label={`${dayWeather.cloud}%`}/>
-                
+                Humidity:{" "}
+                <ProgressBar
+                  animated
+                  now={dayWeather.humidity}
+                  label={`${dayWeather.humidity}%`}
+                />
+                Cloud Coverage:{" "}
+                <ProgressBar
+                  animated
+                  variant="info"
+                  now={dayWeather.cloud}
+                  label={`${dayWeather.cloud}%`}
+                />
               </Card.Text>
               <Button variant="primary">More Info</Button>
             </Card.Body>
@@ -169,11 +175,7 @@ function App() {
   return (
     <Container>
       <Card style={{ width: "18rem" }}>
-        <Card.Img
-          variant="top"
-          className="icon"
-          src={currentWeather.icon}
-        />
+        <Card.Img variant="top" className="icon" src={currentWeather.icon} />
         <Card.Body>
           <Card.Title>The weather currently in {cityInput.city}</Card.Title>
           <Card.Text>
@@ -184,9 +186,19 @@ function App() {
             Temp: {currentWeather.temp} <sup>o</sup>C <br />
             Feels Like: {currentWeather.feelTemp} <sup>o</sup>C <br />
             WindSpeed: {currentWeather.windSpeed} m/s <br />
-            Humidity: <ProgressBar animated now={currentWeather.humidity} label={`${currentWeather.humidity}%`}/>
-            Cloud Coverage: <ProgressBar animated variant="info" now={currentWeather.cloud} label={`${currentWeather.cloud}%`}/>
-          
+            Humidity:{" "}
+            <ProgressBar
+              animated
+              now={currentWeather.humidity}
+              label={`${currentWeather.humidity}%`}
+            />
+            Cloud Coverage:{" "}
+            <ProgressBar
+              animated
+              variant="info"
+              now={currentWeather.cloud}
+              label={`${currentWeather.cloud}%`}
+            />
           </Card.Text>
           <Button variant="primary">More Info</Button>
         </Card.Body>
@@ -195,5 +207,10 @@ function App() {
     </Container>
   );
 }
+
+{/* <form>
+  <input type="text" id="cityInput" placeholder="Type City Here" />
+  <button onClick={(event) => updateCity(event)}>Update City</button>
+</form>; */}
 
 export default App;
