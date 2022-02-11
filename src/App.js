@@ -5,11 +5,16 @@ import { ApiClient } from "./ApiClient";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 
-
 import Container from "react-bootstrap/Container";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import ProgressBar from "react-bootstrap/ProgressBar";
+import Navbar from "react-bootstrap/Navbar";
+import {Stack} from "react-bootstrap/";
+import {Form} from "react-bootstrap/";
+import {FormControl} from "react-bootstrap/";
+
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 
 
 
@@ -168,6 +173,7 @@ function App() {
                 <br />
               </Card.Text>
               <Card.Text>
+
                 Humidity:{" "}
                 <ProgressBar
                   animated
@@ -191,7 +197,24 @@ function App() {
   };
 
   return (
-    <>
+
+    <BrowserRouter>
+      <Navbar bg="light">
+      <Navbar.Brand className="pl-5"><h1>Social App</h1></Navbar.Brand>
+        <Container fluid className="justify-content-center">
+          <Form onSubmit={(event)=>updateCity(event)}>
+            <Stack className="mt-3 mb-3" direction="horizontal" gap="3">
+            <FormControl
+            id="cityInput"
+            type="text"
+            placeholder="City Search"/>
+            <Button onClick={(event)=>updateCity(event)}>
+              Search
+            </Button>
+            </Stack>
+          </Form>
+        </Container>
+      </Navbar>
       <Container>
         <Card className="mainCard" style={{ width: "20rem" }}>
           <Card.Img variant="top" className="icon" src={currentWeather.icon} />
@@ -231,9 +254,10 @@ function App() {
             <Button variant="primary">More Info</Button>
           </Card.Body>
         </Card>
+
       </Container>
       <Container>{buildSevenDayWeather()}</Container>
-    </>
+    </BrowserRouter>
   );
 }
 {
