@@ -8,6 +8,7 @@ import "./App.css";
 import Container from "react-bootstrap/Container";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
+import ProgressBar from 'react-bootstrap/ProgressBar'
 
 function App() {
   const [currentWeather, cCurrentWeather] = useState({});
@@ -150,12 +151,12 @@ function App() {
               <Card.Text>
                 {dayWeather.tag} {dayWeather.description}
                 <br />
-                Cloud Coverage: {dayWeather.cloud}%<br />
                 Temp Min: {dayWeather.tempmin} <sup>o</sup>C <br />
                 Temp Max: {dayWeather.tempmax} <sup>o</sup>C <br />
-                Humidity: {dayWeather.humidity}%<br />
-                WindSpeed: {dayWeather.windSpeed} m/s
-                <br />
+                WindSpeed: {dayWeather.windSpeed} m/s <br />
+                Humidity: <ProgressBar animated now={dayWeather.humidity} label={`${dayWeather.humidity}%`}/>
+                Cloud Coverage: <ProgressBar animated variant="info" now={dayWeather.cloud} label={`${dayWeather.cloud}%`}/>
+                
               </Card.Text>
               <Button variant="primary">More Info</Button>
             </Card.Body>
@@ -180,12 +181,12 @@ function App() {
             <br />
             {currentWeather.tag} {currentWeather.description}
             <br />
-            Cloud Coverage: {currentWeather.cloud}%<br />
             Temp: {currentWeather.temp} <sup>o</sup>C <br />
             Feels Like: {currentWeather.feelTemp} <sup>o</sup>C <br />
-            Humidity: {currentWeather.humidity}%<br />
-            WindSpeed: {currentWeather.windSpeed} m/s
-            <br />
+            WindSpeed: {currentWeather.windSpeed} m/s <br />
+            Humidity: <ProgressBar animated now={currentWeather.humidity} label={`${currentWeather.humidity}%`}/>
+            Cloud Coverage: <ProgressBar animated variant="info" now={currentWeather.cloud} label={`${currentWeather.cloud}%`}/>
+          
           </Card.Text>
           <Button variant="primary">More Info</Button>
         </Card.Body>
