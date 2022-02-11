@@ -42,7 +42,7 @@ function App() {
       city: input,
     });
     // console.log(`You just entered`, input);
-    refreshLocation();
+    // refreshLocation();
   };
 
   //callback function
@@ -133,6 +133,12 @@ function App() {
     //disable error for the square brackets you dont want to re-run the function after everychange in this case
     refreshSevenDayWeather();
   }, [location]);
+
+  useEffect(() => {
+    //disable error for the square brackets you dont want to re-run the function after everychange in this case
+    //refreshlocation(); works but bad
+    refreshLocation();
+  }, [cityInput]);
 
   const buildSevenDayWeather = () => {
     return sevenDayWeather.slice(1).map((dayWeather, index) => {
